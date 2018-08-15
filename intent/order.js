@@ -39,7 +39,7 @@ module.exports = (h) => {
     if (context.to_confirm.length > 0){
         for (let slot_key of Object.keys(slots)){
             let applicable_param_key = context.to_confirm.find(param_key => param_key === slot_key);
-            if (applicable_param){
+            if (applicable_param_key){
                 debug(`Add ${applicable_param_key} to confirmed.`);
                 context.confirmed[applicable_param_key] = slots[slot_key];
                 debug(`Removing ${applicable_param_key} from to_confirm.`);
