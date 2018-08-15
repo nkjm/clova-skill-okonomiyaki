@@ -65,6 +65,7 @@ module.exports = (h) => {
             type: "PlainText",
             value: `${context.confirmed.menu}を${context.confirmed.quantity}個ですね。すぐにお届けします。家どこか知らんけど（笑`
         });
+        h.endSession();
     }
 
     debug(`Context follows.`);
