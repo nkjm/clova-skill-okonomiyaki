@@ -7,9 +7,7 @@ module.exports = (h) => {
     debug(h.getSessionId());
     debug(h.getSlots());
 
-    h.setSimpleSpeech({
-        lang: 'ja',
-        type: 'PlainText',
-        value: 'ご注文はどうしましょう？',
-    });
+    const intent_name = h.getIntentName();
+    const intent = require(`../intent/${intent_name}.js`);
+    return intent(h);
 }
