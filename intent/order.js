@@ -6,6 +6,8 @@ const cache = require("memory-cache");
 module.exports = (h) => {
     const memory = cache.get(h.getSessionId());
 
+    debug(memory);
+
     let params;
 
     if (memory){

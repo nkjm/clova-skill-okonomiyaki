@@ -8,6 +8,6 @@ module.exports = (h) => {
     debug(h.getSlots());
 
     const intent_name = h.getIntentName();
-    const intent = require(`../intent/${intent_name}.js`);
+    const intent = require(`../intent/order.js`);
     return intent(h);
 }
