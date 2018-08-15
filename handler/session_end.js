@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require("debug")("clova:*");
+const debug = require("debug")("clova:handler");
 
 module.exports = (h) => {
 

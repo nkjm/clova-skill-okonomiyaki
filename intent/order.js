@@ -1,6 +1,6 @@
 "use strict";
 
-const debug = require("debug")("clova:*");
+const debug = require("debug")("clova:intent");
 
 module.exports = (h) => {
     const params = [{
@@ -20,14 +20,19 @@ module.exports = (h) => {
             if (p.name === slot_name){
                 debug(`${p.name} has been filled.`);
                 p.value = slots[slot_name];
-            } else {
-                debug(`Going to collect ${p.name}.`);
-                h.setSimpleSpeech({
-                    lang: "ja",
-                    type: "PlainText",
-                    value: p.message,
-                });
             }
+        }
+    }
+
+    for (let p of params){
+        if (!p.value){
+           debug(`Going to collect ${p.name}.`);
+           h.setSimpleSpeech({
+               lang: "ja",
+               type: "PlainText",
+               value: p.message,
+           });
+           break;
         }
     }
 }
