@@ -1,5 +1,6 @@
 "use strict";
 
-module.exports = () => {
-    
+module.exports = (h) => {
+    debug(h.getIntentName());
+    debug(h.getSessionId());
 }
