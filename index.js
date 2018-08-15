@@ -26,4 +26,4 @@ const clovaMiddleware = clova.Middleware({ applicationId: process.env.CLOVA_APP_
 /**
 Router configuration
 */
-server.post('/clova', clovaMiddleware, handler);
+server.post('/clova/webhook', clovaMiddleware, handler);
