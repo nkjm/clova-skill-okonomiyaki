@@ -39,8 +39,6 @@ module.exports = async (h) => {
     @prop {Object} confirmed - Store confirmed parameter.
     */
     let context = cache.get(h.getSessionId());
-    debug(`Currnet context follows.`);
-    debug(context);
     if (!context){
         context = {
             to_confirm: [],
@@ -51,27 +49,34 @@ module.exports = async (h) => {
             context.to_confirm.push(param_key);
         }
     }
+    debug(`Currnet context follows.`);
+    debug(context);
 
     /**
     Apply slots to parameters.
     */
-    let index = 0;
     if (context.to_confirm.length > 0){
         const slots = h.getSlots();
         debug(`Received slots follows.`);
         debug(slots);
 
+        let applied_param_keys = [];
         for (let slot_key of Object.keys(slots)){
             let applicable_param_key = context.to_confirm.find(param_key => param_key === slot_key);
             if (applicable_param_key){
                 debug(`Add ${applicable_param_key} to confirmed.`);
                 context.confirmed[applicable_param_key] = slots[slot_key];
-                debug(`Removing ${applicable_param_key} from to_confirm.`);
-                context.to_confirm.splice(index, 1);
-                debug(`Now to_confirm is ${JSON.stringify(context.to_confirm)}.`);
+                applied_param_keys.push(applicable_param_key);
             }
         }
-        index++;
+
+        let updated_to_confirm = [];
+        for (let param of context.to_confirm){
+            if (!applied_param_keys.includes(param)){
+                updated_to_confirm.push(param);
+            }
+        }
+        context.to_confirm = updated_to_confirm;
     }
 
     /**
