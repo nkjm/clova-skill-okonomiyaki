@@ -11,12 +11,14 @@ const intent_handler = require("./handler/intent");
 const session_end_handler = require("./handler/session_end");
 
 // Setup SDK for Pay
+/*
 const pay_sdk = require("line-pay");
 const pay = new pay_sdk({
     channelId: process.env.PAY_CHANNEL_ID,
     channelSecret: process.env.PAY_CHANNEL_SECRET,
     isSandbox: true
 });
+*/
 
 server.listen(process.env.PORT || 5000, () => {
     console.log("Server is running...");
@@ -36,6 +38,7 @@ Router configuration
 */
 server.post('/clova/webhook', clovaMiddleware, handler);
 
+/*
 server.get('/pay/confirm', (req, res, next) => {
     if (!req.query.transactionId || !req.query.orderId){
         // Required query string not found.
@@ -63,3 +66,4 @@ server.get('/pay/confirm', (req, res, next) => {
         res.sendStatus(200);
     });
 });
+*/
