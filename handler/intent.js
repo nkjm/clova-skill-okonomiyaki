@@ -5,21 +5,23 @@ const cache = require("memory-cache");
 const flex = require("../lib/flex");
 
 // Setup SDK for Messaging API
-/*
-const bot_sdk = require("@line/bot-sdk");
-const bot = new bot_sdk.Client({
-    channelAccessToken: process.env.BOT_ACCESS_TOKEN,
-    channelSecret: process.env.BOT_CHANNEL_SECRET
-});
+if (process.env.BOT == "enable"){
+    const bot_sdk = require("@line/bot-sdk");
+    const bot = new bot_sdk.Client({
+        channelAccessToken: process.env.BOT_ACCESS_TOKEN,
+        channelSecret: process.env.BOT_CHANNEL_SECRET
+    });
+}
 
 // Setup SDK for Pay
-const pay_sdk = require("line-pay");
-const pay = new pay_sdk({
-    channelId: process.env.PAY_CHANNEL_ID,
-    channelSecret: process.env.PAY_CHANNEL_SECRET,
-    isSandbox: true
-});
-*/
+if (process.env.PAY == "enable"){
+    const pay_sdk = require("line-pay");
+    const pay = new pay_sdk({
+        channelId: process.env.PAY_CHANNEL_ID,
+        channelSecret: process.env.PAY_CHANNEL_SECRET,
+        isSandbox: true
+    });
+}
 
 module.exports = async (h) => {
     /**
@@ -112,22 +114,25 @@ module.exports = async (h) => {
         value: `${context.confirmed.menu}を${context.confirmed.quantity}個ですね。すぐにお届けします。家どこか知らんけど（笑`
     });
 
-    /*
-    // Reserve payment using Pay API.
-    let reserve_option = {
-        productName: `お好み焼`,
-        amount: 600, // Should be set dynamically.
-        currency: "JPY",
-        orderId: `${h.getSessionId()}`,
-        confirmUrl: process.env.PAY_CONFIRM_URL,
-        confirmUrlType: "SERVER",
+    if (process.env.PAY == "enable"){
+        // Reserve payment using Pay API.
+        let reserve_option = {
+            productName: `お好み焼`,
+            amount: 600, // Should be set dynamically.
+            currency: "JPY",
+            orderId: `${h.getSessionId()}`,
+            confirmUrl: process.env.PAY_CONFIRM_URL,
+            confirmUrlType: "SERVER",
+        }
+        let reservation = await pay.reserve(reserve_option);
+        cache.put(reservation.orderId, reservation);
     }
-    let reservation = await pay.reserve(reserve_option);
-    cache.put(reservation.orderId, reservation);
 
-    // Send message via chatbot.
-    let pay_message = flex.pay_message({payment_url: reservation.info.paymentUrl.web});
-    await bot.pushMessage(h.requestObject.session.user.userId, pay_message);
-    */
+    if (process.env.BOT == "enable"){
+        // Send message via chatbot.
+        let pay_message = flex.pay_message({payment_url: reservation.info.paymentUrl.web});
+        await bot.pushMessage(h.requestObject.session.user.userId, pay_message);
+    }
+
     h.endSession();
 }
