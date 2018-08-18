@@ -67,14 +67,11 @@ module.exports = async (h) => {
             if (applicable_param_key){
                 debug(`Add ${applicable_param_key} to confirmed.`);
                 context.confirmed[applicable_param_key] = slots[slot_key];
-                context.to_confirm = context.to_confirm.slice(index, 1);
-                //applied_param_keys.push(applicable_param_key);
+                applied_param_keys.push(applicable_param_key);
             }
             index++;
         }
-        debug(`Now to_confirm is ${JSON.stringify(context.to_confirm)}`);
-
-        /*
+        
         let updated_to_confirm = [];
         for (let param of context.to_confirm){
             if (!applied_param_keys.includes(param)){
@@ -83,7 +80,6 @@ module.exports = async (h) => {
         }
         context.to_confirm = updated_to_confirm;
         debug(`Now to_confirm is ${JSON.stringify(context.to_confirm)}`);
-        */
     }
 
     /**
