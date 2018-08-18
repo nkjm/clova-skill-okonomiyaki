@@ -12,6 +12,12 @@ const bot_config = {
 const bot = new bot_sdk.Client(bot_config);
 
 module.exports = async (h) => {
+    let user_id = h.requestObject.session.user.userId;
+    await bot.pushMessage(user_id, {
+        type: "text",
+        text: "hoge"
+    })
+    
     const params = {
         menu: {
             message: "メニューはどうしましょう？"
