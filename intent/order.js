@@ -2,8 +2,18 @@
 
 const debug = require("debug")("clova:intent");
 const cache = require("memory-cache");
+const bot_sdk = require("@line/bot-sdk");
+
+const bot_config = {
+    channelAccessToken: process.env.BOT_ACCESS_TOKEN, // 環境変数からアクセストークンをセットしています
+    channelSecret: process.env.BOT_CHANNEL_SECRET // 環境変数からChannel Secretをセットしています
+};
+
+const bot = new bot_sdk.Client(bot_config);
 
 module.exports = (h) => {
+    debug(h.requestObject.session.user);
+
     const params = {
         menu: {
             message: "メニューはどうしましょう？"
@@ -65,6 +75,9 @@ module.exports = (h) => {
             type: "PlainText",
             value: `${context.confirmed.menu}を${context.confirmed.quantity}個ですね。すぐにお届けします。家どこか知らんけど（笑`
         });
+
+        //bot.pushMessage(user_id, )
+
         h.endSession();
     }
 
