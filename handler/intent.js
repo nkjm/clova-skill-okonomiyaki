@@ -5,6 +5,7 @@ const cache = require("memory-cache");
 const flex = require("../lib/flex");
 
 // Setup SDK for Messaging API
+/*
 const bot_sdk = require("@line/bot-sdk");
 const bot = new bot_sdk.Client({
     channelAccessToken: process.env.BOT_ACCESS_TOKEN,
@@ -18,6 +19,7 @@ const pay = new pay_sdk({
     channelSecret: process.env.PAY_CHANNEL_SECRET,
     isSandbox: true
 });
+*/
 
 module.exports = async (h) => {
     /**
@@ -110,6 +112,7 @@ module.exports = async (h) => {
         value: `${context.confirmed.menu}を${context.confirmed.quantity}個ですね。すぐにお届けします。家どこか知らんけど（笑`
     });
 
+    /*
     // Reserve payment using Pay API.
     let reserve_option = {
         productName: `お好み焼`,
@@ -125,6 +128,6 @@ module.exports = async (h) => {
     // Send message via chatbot.
     let pay_message = flex.pay_message({payment_url: reservation.info.paymentUrl.web});
     await bot.pushMessage(h.requestObject.session.user.userId, pay_message);
-
+    */
     h.endSession();
 }
