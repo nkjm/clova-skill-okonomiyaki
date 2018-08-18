@@ -1,15 +1,15 @@
 {
   "name": "okonomiyaki",
   "version": "1.0.0",
-  "description": "",
+  "description": "A clova skill to order Okonomiyaki delivery.",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["clova", "line", "bot", "chatbot"],
+  "author": "Kazuki Nakajima",
+  "license": "MIT",
   "dependencies": {
     "@line/bot-sdk": "^6.2.1",
     "@line/clova-cek-sdk-nodejs": "^1.0.1",
