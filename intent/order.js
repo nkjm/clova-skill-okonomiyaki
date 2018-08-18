@@ -11,9 +11,7 @@ const bot_config = {
 
 const bot = new bot_sdk.Client(bot_config);
 
-module.exports = (h) => {
-    debug(h.requestObject.session.user);
-
+module.exports = async (h) => {
     const params = {
         menu: {
             message: "メニューはどうしましょう？"
@@ -76,7 +74,11 @@ module.exports = (h) => {
             value: `${context.confirmed.menu}を${context.confirmed.quantity}個ですね。すぐにお届けします。家どこか知らんけど（笑`
         });
 
-        //bot.pushMessage(user_id, )
+        let user_id = h.requestObject.session.user.userId;
+        await bot.pushMessage(user_id, {
+            type: "text",
+            text: "hoge"
+        })
 
         h.endSession();
     }
