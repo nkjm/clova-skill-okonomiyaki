@@ -77,6 +77,7 @@ module.exports = async (h) => {
             }
         }
         context.to_confirm = updated_to_confirm;
+        debug(`Now to_confirm is ${JSON.stringify(context.to_confirm)}`);
     }
 
     /**
