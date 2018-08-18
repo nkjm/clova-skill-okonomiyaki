@@ -123,10 +123,8 @@ module.exports = async (h) => {
     cache.put(reservation.orderId, reservation);
 
     // Send message via chatbot.
-    debug(h.requestObject.session.user.userId);
     let pay_message = flex.pay_message({payment_url: reservation.info.paymentUrl.web});
     await bot.pushMessage(h.requestObject.session.user.userId, pay_message);
-
 
     h.endSession();
 }
